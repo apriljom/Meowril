@@ -1,58 +1,62 @@
 import React from 'react';
-import { Rocket, Calendar, Heart, Github, Facebook, Mail, ArrowUp } from 'lucide-react';
+import { User, Rocket, Calendar, Heart } from 'lucide-react';
 import './About.css';
+import myPortrait from './mypicture2.jpg'; // Using your existing portrait variable
 
 const About = () => {
+  const stats = [
+    { id: 1, label: "PROJECTS", value: "0+", icon: <Rocket size={20} /> },
+    { id: 2, label: "YEARS EXP", value: "0+", icon: <Calendar size={20} /> },
+    { id: 3, label: "DEDICATION", value: "100%", icon: <Heart size={20} /> }
+  ];
+
   return (
-    <section className="about-section">
-      {/* 1. Intro Cards */}
-      <div className="info-card">
-        <p>
-          Hi! I'm <span className="highlight-text">April</span>, a passionate frontend 
-          developer specializing in creating stunning, responsive, and user-friendly 
-          web interfaces. I love bringing designs to life with modern web technologies.
-        </p>
-      </div>
-
-      <div className="info-card">
-        <p>
-          With expertise in React, JavaScript, and modern CSS frameworks, I craft 
-          beautiful digital experiences that are both visually appealing and highly functional.
-        </p>
-      </div>
-
-      {/* 2. Stats Grid */}
-      <div className="stats-grid">
-        <div className="stat-card">
-          <Rocket className="stat-icon purple" />
-          <h3 className="stat-number">5+</h3>
-          <p className="stat-label">PROJECTS</p>
-        </div>
-        
-        <div className="stat-card">
-          <Calendar className="stat-icon purple" />
-          <h3 className="stat-number">Fresh</h3>
-          <p className="stat-label">GRADUATE</p>
+    <section id="about" className="about-section">
+      <div className="about-container">
+        {/* Header Section */}
+        <div className="about-header">
+          <div className="about-badge">
+            <User size={16} />
+            <span>About Me</span>
+          </div>
+          <h2 className="about-title">Get To Know Me</h2>
+          <p className="about-subtitle">Passionate developer crafting digital experiences</p>
         </div>
 
-        <div className="stat-card">
-          <Heart className="stat-icon purple" />
-          <h3 className="stat-number">100%</h3>
-          <p className="stat-label">DEDICATION</p>
+        {/* Image Section */}
+        <div className="about-image-wrapper">
+          <img src={myPortrait} alt="About Portrait" className="about-portrait" />
         </div>
-      </div>
 
-      {/* 3. Footer Actions */}
-      <div className="about-footer">
-        <div className="social-links">
-          <div className="social-icon-box"><Github size={20} /></div>
-          <div className="social-icon-box"><Facebook size={20} /></div>
-          <div className="social-icon-box"><Mail size={20} /></div>
+        {/* Text Content Section */}
+        <div className="about-text-content">
+          <div className="about-paragraph-card">
+            <p>
+              Hi! I'm <span className="highlight-text">April</span>, a passionate frontend 
+              developer specializing in creating stunning, responsive, and user-friendly 
+              web interfaces. I love bringing designs to life with modern web technologies.
+            </p>
+          </div>
+
+          <div className="about-paragraph-card">
+            <p>
+              With expertise in React, JavaScript, and modern CSS frameworks, I craft 
+              beautiful digital experiences that are both visually appealing and 
+              highly functional.
+            </p>
+          </div>
         </div>
-        
-        <button className="scroll-top-btn" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-          <ArrowUp size={24} />
-        </button>
+
+        {/* Stats Grid Section */}
+        <div className="stats-grid">
+          {stats.map((stat) => (
+            <div key={stat.id} className="stat-card">
+              <div className="stat-icon">{stat.icon}</div>
+              <h3 className="stat-value">{stat.value}</h3>
+              <p className="stat-label">{stat.label}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

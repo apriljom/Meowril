@@ -1,0 +1,193 @@
+.skills-section {
+  padding: 80px 20px;
+  background: transparent;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.skills-container {
+  max-width: 1000px;
+  width: 100%;
+}
+
+.skills-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.skills-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: rgba(236, 72, 153, 0.1);
+  border: 1px solid rgba(236, 72, 153, 0.2);
+  color: #ec4899;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+}
+
+.skills-title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  background: linear-gradient(to right, #ec4899, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.skills-subtitle {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.skill-card {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 24px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(30, 41, 59, 0.6);
+}
+
+.skill-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.skill-percentage {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.skill-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.skill-desc {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+
+.skill-progress-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.skill-progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1s ease-in-out;
+}
+
+@media (max-width: 600px) {
+  .skills-title { font-size: 2rem; }
+}
+.skills-section { padding: 80px 20px; background: transparent; color: white; }
+.skills-container { max-width: 1000px; margin: 0 auto; }
+.skills-header { text-align: center; margin-bottom: 50px; }
+
+.skills-title {
+  font-size: 2.8rem;
+  background: linear-gradient(to right, #ec4899, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  perspective: 1000px; /* Essential for 3D flip */
+}
+
+/* FLIP ANIMATION LOGIC */
+.skill-card-container {
+  height: 320px;
+  cursor: pointer;
+}
+
+.skill-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.skill-card-container.flipped .skill-card-inner {
+  transform: rotateY(180deg);
+}
+
+.skill-card-front, .skill-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 24px;
+  padding: 30px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-card-back {
+  transform: rotateY(180deg);
+  justify-content: center;
+}
+
+/* CARD CONTENT STYLES */
+.skill-card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+
+.skill-icon-placeholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #1e293b;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.skill-name { font-size: 1.8rem; margin: 20px 0 5px; }
+.skill-desc { color: #94a3b8; margin-bottom: 25px; }
+
+.skill-progress-bg { height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; }
+.skill-progress-fill { height: 100%; border-radius: 10px; transition: width 1s; }
+
+.sub-skills-list { list-style: none; padding: 0; margin: 15px 0; }
+.sub-skills-list li { margin: 8px 0; font-size: 1.1rem; }
+.bullet { margin-right: 10px; }
+
+.flip-hint { 
+  margin-top: auto; 
+  font-size: 0.8rem; 
+  color: #64748b; 
+  display: flex; 
+  align-items: center; 
+  gap: 5px; 
+}

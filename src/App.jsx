@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react'; 
-import { Mail, ArrowRight, Menu, X, Home, User, Code, Rocket, FileText, Send } from 'lucide-react'; // Added new icons
+import { Mail, ArrowRight, Menu, X, Home, User, Code, Rocket, Send } from 'lucide-react';
 import './App.css';
 import myPortrait from './mypicture.png';
 
+import Contact from './Contact'; 
+import Project from './Project'; 
+import Skill from './Skill';
+import About from './About';
+
 function App() {
   const [loading, setLoading] = useState(true);
-  const [menuOpen, setMenuOpen] = useState(false); // State for the menu overlay
+  const [menuOpen, setMenuOpen] = useState(false);
+  
+  // 1. STATE PARA SA ACTIVE SECTION
+  const [activeSection, setActiveSection] = useState('home');
 
   const firstName = "April";
   const lastName = "Garcia";
@@ -19,14 +27,48 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  // 2. INTERSECTION OBSERVER LOGIC
+  useEffect(() => {
+    if (loading) return;
+
+    const options = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px', // Binabantayan ang gitna ng screen
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, options);
+
+    // Listahan ng mga ID na kailangang bantayan
+    const sectionIds = ['home', 'about', 'skills', 'projects', 'contact'];
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [loading]);
+
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setMenuOpen(false); 
+    }
+  };
+
   if (loading) {
     return (
       <div className="loader-container">
         <div className="loader-content">
           <img src={portfolioImage} alt="Loading" className="loader-image" />
-          <div className="loader-bar-bg">
-            <div className="loader-bar-fill"></div>
-          </div>
+          <div className="loader-bar-bg"><div className="loader-bar-fill"></div></div>
         </div>
       </div>
     );
@@ -34,81 +76,92 @@ function App() {
 
   return (
     <div className="portfolio-bg">
-      {/* 1. Header */}
-      <header className="mobile-header">
-        <div className="logo-section">
-          <img src={portfolioImage} alt={firstName} className="nav-profile-pic" />
-          <h1 className="nav-name">
-            {firstName} <span className="blue-text">{lastName}</span>
-          </h1>
+      <header className="main-header">
+        <div className="header-content">
+          <div className="logo-section" onClick={() => scrollToSection('home')}>
+            <img src={portfolioImage} alt={firstName} className="nav-profile-pic" />
+            <h1 className="nav-name">{firstName} <span className="blue-text">{lastName}</span></h1>
+          </div>
+          <button className="right-nav-button" onClick={() => setMenuOpen(true)}>
+            <Menu size={28} />
+          </button>
         </div>
-        {/* Toggle Menu Button */}
-        <button className="menu-button" onClick={() => setMenuOpen(true)}>
-          <Menu className="menu-icon" />
-        </button>
       </header>
 
-      {/* 2. Menu Overlay (Shows when menuOpen is true) */}
       {menuOpen && (
-        <div className="menu-overlay">
-          <div className="menu-header">
-            <div className="logo-section">
-              <img src={portfolioImage} alt={firstName} className="nav-profile-pic" />
-              <h1 className="nav-name">
-                {firstName} <span className="blue-text">{lastName}</span>
-              </h1>
-            </div>
-            <button className="close-button" onClick={() => setMenuOpen(false)}>
+        <div className="modal-overlay">
+          <div className="centered-menu-card">
+            <button className="modal-close-btn" onClick={() => setMenuOpen(false)}>
               <X size={30} />
             </button>
-          </div>
 
-          <nav className="menu-items">
-            <div className="menu-item active">
-              <Home className="menu-icon-purple" /> <span>Home</span>
-              <div className="active-dot"></div>
-            </div>
-            <div className="menu-item">
-              <User className="menu-icon-purple" /> <span>About</span>
-            </div>
-            <div className="menu-item">
-              <Code className="menu-icon-purple" /> <span>Skills</span>
-            </div>
-            <div className="menu-item">
-              <Rocket className="menu-icon-purple" /> <span>Projects</span>
-            </div>
-            <div className="menu-item">
-              <FileText className="menu-icon-purple" /> <span>CV</span>
-            </div>
-            <div className="menu-item">
-              <Send className="menu-icon-purple" /> <span>Contact</span>
-            </div>
-          </nav>
+            <nav className="modal-nav-list">
+              {/* 3. DYNAMIC CLASS PARA SA INDICATORS */}
+              <div 
+                className={`modal-nav-item ${activeSection === 'home' ? 'active-item' : ''}`} 
+                onClick={() => scrollToSection('home')}
+              >
+                <Home className="purple-icon" /> <span>Home</span>
+                {activeSection === 'home' && <div className="active-dot"></div>}
+              </div>
+
+              <div 
+                className={`modal-nav-item ${activeSection === 'about' ? 'active-item' : ''}`} 
+                onClick={() => scrollToSection('about')}
+              >
+                <User className="purple-icon" /> <span>About</span>
+                {activeSection === 'about' && <div className="active-dot"></div>}
+              </div>
+
+              <div 
+                className={`modal-nav-item ${activeSection === 'skills' ? 'active-item' : ''}`} 
+                onClick={() => scrollToSection('skills')}
+              >
+                <Code className="purple-icon" /> <span>Skills</span>
+                {activeSection === 'skills' && <div className="active-dot"></div>}
+              </div>
+
+              <div 
+                className={`modal-nav-item ${activeSection === 'projects' ? 'active-item' : ''}`} 
+                onClick={() => scrollToSection('projects')}
+              >
+                <Rocket className="purple-icon" /> <span>Projects</span>
+                {activeSection === 'projects' && <div className="active-dot"></div>}
+              </div>
+
+              <div 
+                className={`modal-nav-item ${activeSection === 'contact' ? 'active-item' : ''}`} 
+                onClick={() => scrollToSection('contact')}
+              >
+                <Send className="purple-icon" /> <span>Contact</span>
+                {activeSection === 'contact' && <div className="active-dot"></div>}
+              </div>
+            </nav>
+          </div>
         </div>
       )}
 
-      {/* 3. Hero Section */}
-      <main className="hero-section">
-        <div className="available-pill">
-          <span className="dot green"></span>
-          Available for work
-        </div>
-        <div className="main-profile-circle">
-          <img src={portfolioImage} alt={firstName} className="hero-portrait" />
-        </div>
-        <h2 className="main-name">
-          {firstName} <span className="blue-text">{lastName}</span>
-        </h2>
+      {/* 4. SIGURADUHIN NA MAY MGA ID ANG SECTIONS MO */}
+      <main id="home" className="hero-section">
+        {/* Hero content... */}
+        <div className="available-pill"><span className="dot green"></span> Available for work</div>
+        <div className="main-profile-circle"><img src={portfolioImage} alt={firstName} className="hero-portrait" /></div>
+        <h2 className="main-name">{firstName} <span className="blue-text">{lastName}</span></h2>
         <p className="main-role">{currentRole}</p>
         <div className="cta-buttons">
-          <button className="primary-cta">
+          <button className="primary-cta" onClick={() => scrollToSection('projects')}>
             View My Work <ArrowRight className="btn-icon" />
           </button>
-          <button className="secondary-cta">
+          <button className="secondary-cta" onClick={() => scrollToSection('contact')}>
             Contact Me <Mail className="btn-icon blue-text" />
           </button>
         </div>
       </main>
+
+      <section id="about"><About /></section>
+      <section id="skills"><Skill /></section>
+      <section id="projects"><Project /></section>
+      <section id="contact"><Contact /></section>
     </div>
   );
 }
