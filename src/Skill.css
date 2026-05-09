@@ -1,3 +1,4 @@
+/* SECTION WRAPPER */
 .skills-section {
   padding: 80px 20px;
   background: transparent;
@@ -9,8 +10,10 @@
 .skills-container {
   max-width: 1000px;
   width: 100%;
+  margin: 0 auto;
 }
 
+/* HEADER STYLES */
 .skills-header {
   text-align: center;
   margin-bottom: 50px;
@@ -43,86 +46,14 @@
   font-size: 1.1rem;
 }
 
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-}
-
-.skill-card {
-  background: rgba(30, 41, 59, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 24px;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.skill-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(30, 41, 59, 0.6);
-}
-
-.skill-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.skill-percentage {
-  color: #64748b;
-  font-size: 0.9rem;
-}
-
-.skill-name {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.skill-desc {
-  color: #64748b;
-  font-size: 0.85rem;
-  margin-bottom: 20px;
-}
-
-.skill-progress-bg {
-  width: 100%;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.skill-progress-fill {
-  height: 100%;
-  border-radius: 10px;
-  transition: width 1s ease-in-out;
-}
-
-@media (max-width: 600px) {
-  .skills-title { font-size: 2rem; }
-}
-.skills-section { padding: 80px 20px; background: transparent; color: white; }
-.skills-container { max-width: 1000px; margin: 0 auto; }
-.skills-header { text-align: center; margin-bottom: 50px; }
-
-.skills-title {
-  font-size: 2.8rem;
-  background: linear-gradient(to right, #ec4899, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
+/* GRID & 3D FLIP LOGIC */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  perspective: 1000px; /* Essential for 3D flip */
+  perspective: 1000px; /* Essential for 3D depth */
 }
 
-/* FLIP ANIMATION LOGIC */
 .skill-card-container {
   height: 320px;
   cursor: pointer;
@@ -136,6 +67,7 @@
   transform-style: preserve-3d;
 }
 
+/* Add 'flipped' class via React State */
 .skill-card-container.flipped .skill-card-inner {
   transform: rotateY(180deg);
 }
@@ -144,50 +76,165 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
+  backface-visibility: hidden; /* Hides the reverse side */
   border-radius: 24px;
   padding: 30px;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(30, 41, 59, 0.4); /* Glassmorphism look */
   border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Important for shine effect */
 }
 
 .skill-card-back {
   transform: rotateY(180deg);
   justify-content: center;
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(139, 92, 246, 0.4);
 }
 
-/* CARD CONTENT STYLES */
-.skill-card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+/* --- UPDATED LIGHT SHINING EFFECT (Front Card Only) --- */
+.skill-card-front::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 40%; 
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.05), /* Very subtle 5% white light */
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: none;
+  pointer-events: none;
+}
 
+.skill-card-container:hover .skill-card-front::after {
+  left: 150%;
+  transition: all 0.8s ease-in-out; /* Smooth and light sweep */
+}
+
+/* Subtle Card Glow on Hover */
+.skill-card-container:hover .skill-card-front {
+  border-color: rgba(236, 72, 153, 0.3);
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.1);
+  background: rgba(30, 41, 59, 0.5);
+}
+/* ------------------------------------------------------ */
+
+/* CARD CONTENT STYLES */
 .skill-icon-placeholder {
   width: 50px;
   height: 50px;
-  border-radius: 4px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  color: #1e293b;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  background: white; /* Contrast for icons */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
 }
 
-.skill-name { font-size: 1.8rem; margin: 20px 0 5px; }
-.skill-desc { color: #94a3b8; margin-bottom: 25px; }
+.skill-card-container:hover .skill-icon-placeholder {
+  transform: scale(1.05);
+}
 
-.skill-progress-bg { height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; }
-.skill-progress-fill { height: 100%; border-radius: 10px; transition: width 1s; }
+.skill-name { font-size: 1.6rem; font-weight: 600; margin: 20px 0 5px; }
+.skill-desc { color: #94a3b8; font-size: 0.9rem; margin-bottom: 25px; }
 
+/* PROGRESS BAR */
+.skill-progress-bg { 
+  height: 8px; 
+  background: rgba(255,255,255,0.1); 
+  border-radius: 10px; 
+  margin-top: auto;
+}
+.skill-progress-fill { 
+  height: 100%; 
+  border-radius: 10px; 
+  transition: width 1s ease-in-out; 
+}
+
+/* BACK CARD LIST */
 .sub-skills-list { list-style: none; padding: 0; margin: 15px 0; }
-.sub-skills-list li { margin: 8px 0; font-size: 1.1rem; }
-.bullet { margin-right: 10px; }
+.sub-skills-list li { 
+  margin: 10px 0; 
+  font-size: 1rem; 
+  display: flex; 
+  align-items: center; 
+}
+.bullet { color: #ec4899; margin-right: 10px; font-weight: bold; }
 
 .flip-hint { 
   margin-top: auto; 
-  font-size: 0.8rem; 
+  font-size: 0.75rem; 
   color: #64748b; 
   display: flex; 
   align-items: center; 
   gap: 5px; 
+}
+
+/* MOBILE ADJUSTMENTS */
+@media (max-width: 600px) {
+  .skills-section {
+    padding: 40px 10px; /* Mas maliit na padding para sa mobile */
+  }
+
+  .skills-title { 
+    font-size: 1.8rem; 
+    margin-bottom: 20px;
+  }
+
+  /* Gagawing 2 columns sa mobile para magmukhang layer-by-layer */
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 12px; /* Mas maliit na agwat para magkasya ang dalawa */
+  }
+
+  /* Ibaba ang height ng container para hindi masyadong mahaba sa screen */
+  .skill-card-container { 
+    height: 260px; 
+  }
+
+  .skill-card-front, .skill-card-back {
+    padding: 15px; /* Pinaliit na padding sa loob ng card */
+    border-radius: 16px;
+  }
+
+  .skill-icon-placeholder {
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+  }
+
+  .skill-name { 
+    font-size: 1rem; /* Mas maliit na font para sa 2-column layout */
+    margin: 10px 0 5px;
+  }
+
+  .skill-desc {
+    font-size: 0.7rem; /* Mas maliit na description */
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines para iwas overlap */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .skill-progress-bg {
+    height: 5px;
+  }
+
+  .sub-skills-list li {
+    font-size: 0.75rem;
+    margin: 4px 0;
+  }
+
+  .flip-hint {
+    font-size: 0.6rem;
+  }
 }

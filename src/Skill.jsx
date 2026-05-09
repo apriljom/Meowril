@@ -65,7 +65,7 @@ const Skill = () => {
       subSkills: ["Async/Await", "Closures", "Modules", "Web APIs", "DOM"]
     },
     { 
-      id: 3, name: "Next.js", level: 85, desc: "SSR & Full-Stack", color: "#ffffff", iconText: "NX",
+      id: 3, name: "Next.js", level: 85, desc: "SSR & Full-Stack", color: "#81e326", iconText: "NX",
       subSkills: ["App Router", "Server Components", "SEO", "API Routes"]
     },
     { 

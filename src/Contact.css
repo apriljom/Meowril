@@ -1,11 +1,9 @@
 .contact-section {
   padding: 80px 20px;
-  /* Remove the solid black background */
   background: transparent; 
   display: flex;
   justify-content: center;
   color: white;
-
 }
 
 .contact-container {
@@ -59,13 +57,40 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   text-decoration: none;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden; /* Para sa shining effect */
+}
+/* UPDATED: LIGHTER SHINING EFFECT */
+.contact-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%; 
+  width: 40%; /* Mas malapad para mas diffused ang liwanag */
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.05), /* Binabaan natin sa 0.05 (5% opacity) para light lang */
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: none;
+  pointer-events: none;
+}
+
+/* Trigger on hover */
+.contact-card:hover::after {
+  left: 150%;
+  transition: all 0.7s ease-in-out; /* Slightly slower para magmukhang elegant */
 }
 
 .contact-card:hover {
   transform: translateY(-3px);
   background: rgba(30, 41, 59, 0.6);
   border-color: rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
 }
 
 .contact-icon-box {
@@ -77,6 +102,19 @@
   align-items: center;
   justify-content: center;
   margin-right: 20px;
+  flex-shrink: 0; /* Para hindi ma-squish ang icon box */
+}
+
+/* Icon Image Adjustment */
+.contact-icon-img {
+  width: 28px; /* Inadjust ko ang size para sakto sa box */
+  height: 28px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.contact-card:hover .contact-icon-img {
+  transform: scale(1.1); /* Zoom effect sa icon kapag naka-hover */
 }
 
 .contact-info {
@@ -91,15 +129,49 @@
   color: #64748b;
   margin-bottom: 4px;
 }
+
 .contact-value {
   font-size: 1rem;
   color: #f1f5f9;
   font-weight: 500;
-  word-break: break-all; /* Prevents long emails from breaking the layout on small phones */
-
+  word-break: break-all;
 }
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .contact-section {
+    padding: 60px 15px; /* Saktong space sa taas at baba */
+  }
+  
+  .contact-title {
+    font-size: 2rem;
+  }
 
-/* Icon Colors */
-.contact-icon-red { color: #ef4444; }
-.contact-icon-white { color: #ffffff; }
-.contact-icon-blue { color: #3b82f6; }
+  /* --- ITO ANG PAGPAPALIIT NG CONTAINER --- */
+  .contact-container {
+    max-width: 320px;    /* Mas "compressed" na container width */
+    width: 90%;          /* Fallback para sa sobrang liliit na screens */
+    margin: 0 auto;      /* Sinisiguradong sentro ang buong box */
+    padding: 0 10px;     /* Konting hininga sa loob */
+  }
+
+  .contact-cards-list {
+    gap: 12px;           /* Mas dikit na cards para sa compact look */
+  }
+
+  .contact-card {
+    padding: 12px 15px;  /* Pinaliit ang size ng mismong card container */
+    border-radius: 12px; /* Mas maliit na kanto para sa maliit na box */
+  }
+
+  .contact-icon-box {
+    width: 40px;         /* Pinaliit na icon container */
+    height: 40px;
+    margin-right: 12px;
+  }
+
+  .contact-icon-img {
+    width: 20px;
+    height: 20px;
+  }
+  /* ---------------------------------------- */
+}

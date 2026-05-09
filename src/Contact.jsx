@@ -1,28 +1,57 @@
 import React from 'react';
 import './Contact.css';
 
+// I-import ang iyong mga images dito
+import emailIcon from './gmail.png';
+import githubIcon from './github.png';
+import facebookIcon from './facebook.png';
+import instagramIcon from './insta.png';
+import tiktokIcon from './tiktok.png';
+import threadsIcon from './threads.png';
+
 const Contact = () => {
   const contactData = [
     {
       id: 1,
       label: 'EMAIL',
       value: '10apriljoygarcia@gmail.com',
-      icon: <span style={{fontSize: '20px'}}>📧</span>, // Emoji placeholder
+      icon: <img src={emailIcon} alt="Email" className="contact-icon-img" />,
       link: 'mailto:10apriljoygarcia@gmail.com',
     },
     {
       id: 2,
       label: 'GITHUB',
       value: 'April Garcia',
-      icon: <span style={{fontSize: '20px'}}>💻</span>, // Emoji placeholder
+      icon: <img src={githubIcon} alt="Github" className="contact-icon-img" />,
       link: 'https://github.com/apriljom',
     },
     {
       id: 3,
       label: 'FACEBOOK',
       value: 'April Garcia',
-      icon: <span style={{fontSize: '20px'}}>👥</span>, // Emoji placeholder
+      icon: <img src={facebookIcon} alt="Facebook" className="contact-icon-img" />,
       link: 'https://www.facebook.com/Meowril',
+    },
+    {
+      id: 4,
+      label: 'INSTAGRAM',
+      value: '_meowril',
+      icon: <img src={instagramIcon} alt="Instagram" className="contact-icon-img" />,
+      link: 'https://www.instagram.com/_meowril/',
+    },
+    {
+      id: 5,
+      label: 'TIKTOK',
+      value: '_meowril',
+      icon: <img src={tiktokIcon} alt="TikTok" className="contact-icon-img" />,
+      link: 'https://www.tiktok.com/@_meowril?lang=en',
+    },
+    {
+      id: 6,
+      label: 'THREADS',
+      value: '_meowril', 
+      icon: <img src={threadsIcon} alt="Threads" className="contact-icon-img" />,
+      link: 'https://www.threads.net/@_meowril',
     },
   ];
 

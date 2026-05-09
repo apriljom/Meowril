@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'; 
-import { Mail, ArrowRight, Menu, X, Home, User, Code, Rocket, Send } from 'lucide-react';
+import { Mail, ArrowRight, Menu, X, Home, User, Code, Rocket, Send, FileText } from 'lucide-react'; 
 import './App.css';
 import myPortrait from './mypicture.png';
 
@@ -7,12 +7,12 @@ import Contact from './Contact';
 import Project from './Project'; 
 import Skill from './Skill';
 import About from './About';
+import CV from './CV'; // 1. I-import ang bagong CV component
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-  
-  // 1. STATE PARA SA ACTIVE SECTION
+  const [cvOpen, setCvOpen] = useState(false); // 2. State para sa CV Modal
   const [activeSection, setActiveSection] = useState('home');
 
   const firstName = "April";
@@ -27,13 +27,12 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // 2. INTERSECTION OBSERVER LOGIC
   useEffect(() => {
     if (loading) return;
 
     const options = {
       root: null,
-      rootMargin: '-50% 0px -50% 0px', // Binabantayan ang gitna ng screen
+      rootMargin: '-50% 0px -50% 0px',
       threshold: 0
     };
 
@@ -45,7 +44,6 @@ function App() {
       });
     }, options);
 
-    // Listahan ng mga ID na kailangang bantayan
     const sectionIds = ['home', 'about', 'skills', 'projects', 'contact'];
     sectionIds.forEach((id) => {
       const el = document.getElementById(id);
@@ -96,7 +94,6 @@ function App() {
             </button>
 
             <nav className="modal-nav-list">
-              {/* 3. DYNAMIC CLASS PARA SA INDICATORS */}
               <div 
                 className={`modal-nav-item ${activeSection === 'home' ? 'active-item' : ''}`} 
                 onClick={() => scrollToSection('home')}
@@ -129,6 +126,17 @@ function App() {
                 {activeSection === 'projects' && <div className="active-dot"></div>}
               </div>
 
+              {/* 3. Updated CV Menu Item to open the component */}
+              <div 
+                className="modal-nav-item"
+                onClick={() => {
+                  setCvOpen(true);
+                  setMenuOpen(false); // Close the menu when CV opens
+                }}
+              >
+                <FileText size={22} className="purple-icon" /> <span>CV</span>
+              </div>
+
               <div 
                 className={`modal-nav-item ${activeSection === 'contact' ? 'active-item' : ''}`} 
                 onClick={() => scrollToSection('contact')}
@@ -141,9 +149,7 @@ function App() {
         </div>
       )}
 
-      {/* 4. SIGURADUHIN NA MAY MGA ID ANG SECTIONS MO */}
       <main id="home" className="hero-section">
-        {/* Hero content... */}
         <div className="available-pill"><span className="dot green"></span> Available for work</div>
         <div className="main-profile-circle"><img src={portfolioImage} alt={firstName} className="hero-portrait" /></div>
         <h2 className="main-name">{firstName} <span className="blue-text">{lastName}</span></h2>
@@ -162,6 +168,9 @@ function App() {
       <section id="skills"><Skill /></section>
       <section id="projects"><Project /></section>
       <section id="contact"><Contact /></section>
+
+      {/* 4. Ilagay ang CV Modal sa dulo */}
+      <CV isOpen={cvOpen} onClose={() => setCvOpen(false)} />
     </div>
   );
 }

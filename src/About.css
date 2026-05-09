@@ -113,6 +113,80 @@
 
 /* Mobile Responsive */
 @media (max-width: 600px) {
-  .about-title { font-size: 2rem; }
-  .stats-grid { grid-template-columns: 1fr; } /* Stack stats on small screens */
+  .about-title { 
+    font-size: 2rem; 
+  }
+
+  /* PINAKA-IMPORTANTE: Gawing 3 columns para maging isang row lang sa mobile */
+  .stats-grid { 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 8px; /* Binawasan ang gap para magkasya sa maliit na screen */
+    margin-top: 20px;
+  }
+
+  .stat-card {
+    padding: 15px 5px; /* Binawasan ang padding sa loob ng card */
+    border-radius: 16px;
+    min-height: 100px; /* Saktong taas para sa mobile view */
+  }
+
+  .stat-icon {
+    font-size: 1rem; /* Mas maliit na icon */
+    margin-bottom: 5px;
+  }
+
+  .stat-value {
+    font-size: 1.2rem; /* Pinaliit ang size ng 0+ at 100% para hindi mag-overflow */
+    margin-bottom: 2px;
+  }
+
+  .stat-label {
+    font-size: 0.6rem; /* Mas maliit na text para sa PROJECTS, EXP, at DEDICATION */
+    letter-spacing: 0.5px;
+  }
+}
+/* 1. SETUP PARA SA LAHAT NG CARDS */
+.about-paragraph-card, 
+.stat-card {
+  position: relative; /* Para dito lang sa loob ng card ang kislap */
+  overflow: hidden;    /* Para hindi lumabas sa borders ang shine */
+  transition: transform 0.3s ease;
+}
+
+/* 2. ANG LIGHT SHINE LAYER (Indibidwal bawat card) */
+.about-paragraph-card::after,
+.stat-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%; 
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.05), /* Super light white lang */
+    transparent
+  );
+  transform: skewX(-25deg);
+  pointer-events: none; /* Hindi istorbo sa click */
+}
+
+/* 3. TRIGGER: ISA-ISA LANG SILA */
+/* Kapag tinapatan ang paragraph, yung paragraph lang ang kikislap */
+.about-paragraph-card:hover::after {
+  left: 150%;
+  transition: left 0.7s ease-in-out;
+}
+
+/* Kapag tinapatan ang specific stat card, yun lang ang kikislap */
+.stat-card:hover::after {
+  left: 150%;
+  transition: left 0.7s ease-in-out;
+}
+
+/* Optional: Slight border glow para mas "polished" */
+.about-paragraph-card:hover,
+.stat-card:hover {
+  border-color: rgba(167, 139, 250, 0.4);
 }
