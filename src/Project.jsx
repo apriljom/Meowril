@@ -4,24 +4,25 @@ import { ExternalLink, Rocket, Layout, Globe } from 'lucide-react';
 import './Project.css';
 
 // Importing your actual local images
-import factoryImg from './factory.png';
+import factoryImg from './factory2.png';
 import factory1Img from './factory1.png';
 
 const Project = () => {
   const projectData = [
+    
     {
       id: 1,
-      title: "No Project to show",
-      category: "Exciting Projects Coming Soon!",
+      title: "CODEMASTER",
+      category: "Thesis Project",
       tag: "Featured Project",
-      description: "I'm currently working on some fresh React and Frontend projects to showcase here. Stay tuned for updates as I polish my latest work!",
-      tech: ["React", "CSS", "JavaScript"],
-      link: "#",
-      image: factoryImg // Using your local factory.png
+      description: "CodeMaster is a 3D educational puzzle game that makes learning C# programming fun through coding challenges and interactive gameplay.",
+      tech: ["Game Development", "C#", "Unity"],
+      link: "https://codemaster-thesis.vercel.app", // O ang iyong Vercel link
+      image: factoryImg 
     },
     {
       id: 2,
-      title: "No Project to show",
+      title: "More Projects Coming Soon!",
       category: "Exciting Projects Coming Soon!",
       tag: "Featured Project",
       description: "I'm currently working on some fresh React and Frontend projects to showcase here. Stay tuned for updates as I polish my latest work!",
