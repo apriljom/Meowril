@@ -159,6 +159,9 @@ function App() {
             View My Work <ArrowRight className="btn-icon" />
           </button>
           <button className="secondary-cta" onClick={() => scrollToSection('contact')}>
+            My VA Portfolio <Mail className="btn-icon blue-text" />
+          </button>
+          <button className="secondary-cta" onClick={() => scrollToSection('contact')}>
             Contact Me <Mail className="btn-icon blue-text" />
           </button>
         </div>

@@ -65,21 +65,10 @@ const Skill = () => {
       subSkills: ["Async/Await", "Closures", "Modules", "Web APIs", "DOM"]
     },
     { 
-      id: 3, name: "Next.js", level: 85, desc: "SSR & Full-Stack", color: "#81e326", iconText: "NX",
-      subSkills: ["App Router", "Server Components", "SEO", "API Routes"]
-    },
-    { 
-      id: 4, name: "TypeScript", level: 80, desc: "Type-safe code", color: "#3178c6", iconText: "TS",
-      subSkills: ["Interfaces", "Generics", "Types", "Enums"]
-    },
-    { 
-      id: 5, name: "HTML/CSS", level: 95, desc: "Responsive Design", color: "#e34f26", iconText: "H5",
+      id: 3, name: "HTML/CSS", level: 95, desc: "Responsive Design", color: "#e34f26", iconText: "H5",
       subSkills: ["Flexbox", "CSS Grid", "Animations", "SASS", "Semantic UI"]
     },
-    { 
-      id: 6, name: "Tailwind CSS", level: 85, desc: "Utility-first CSS", color: "#38bdf8", iconText: "TW",
-      subSkills: ["Config Customization", "Responsive Utilities", "Dark Mode", "Plugins"]
-    }
+    
   ];
 
   return (
