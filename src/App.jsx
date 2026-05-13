@@ -7,12 +7,14 @@ import Contact from './Contact';
 import Project from './Project'; 
 import Skill from './Skill';
 import About from './About';
-import CV from './CV'; // 1. I-import ang bagong CV component
+import CV from './CV'; 
+// REMOVED: VA import here
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cvOpen, setCvOpen] = useState(false); // 2. State para sa CV Modal
+  const [cvOpen, setCvOpen] = useState(false); 
+  // REMOVED: vaOpen state here
   const [activeSection, setActiveSection] = useState('home');
 
   const firstName = "April";
@@ -126,12 +128,11 @@ function App() {
                 {activeSection === 'projects' && <div className="active-dot"></div>}
               </div>
 
-              {/* 3. Updated CV Menu Item to open the component */}
               <div 
                 className="modal-nav-item"
                 onClick={() => {
                   setCvOpen(true);
-                  setMenuOpen(false); // Close the menu when CV opens
+                  setMenuOpen(false); 
                 }}
               >
                 <FileText size={22} className="purple-icon" /> <span>CV</span>
@@ -156,11 +157,19 @@ function App() {
         <p className="main-role">{currentRole}</p>
         <div className="cta-buttons">
           <button className="primary-cta" onClick={() => scrollToSection('projects')}>
-            View My Work <ArrowRight className="btn-icon" />
+            View Project <ArrowRight className="btn-icon" />
           </button>
-          <button className="secondary-cta" onClick={() => scrollToSection('contact')}>
-            My VA Portfolio <Mail className="btn-icon blue-text" />
-          </button>
+          
+        <a 
+    href="https://canva.link/rvbeyswg5dfneef" 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    className="secondary-cta"
+    style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
+  >
+    View VA Portfolio <Mail className="btn-icon blue-text" />
+  </a>
+          
           <button className="secondary-cta" onClick={() => scrollToSection('contact')}>
             Contact Me <Mail className="btn-icon blue-text" />
           </button>
@@ -172,8 +181,8 @@ function App() {
       <section id="projects"><Project /></section>
       <section id="contact"><Contact /></section>
 
-      {/* 4. Ilagay ang CV Modal sa dulo */}
       <CV isOpen={cvOpen} onClose={() => setCvOpen(false)} />
+      {/* REMOVED: VA Component call here */}
     </div>
   );
 }

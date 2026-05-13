@@ -55,8 +55,8 @@ const CV = ({ isOpen, onClose }) => {
             <div className="cv-item">
               <Mail size={18} className="cv-icon" />
               <div>
-                <p className="cv-label">Email</p>
-                <p className="cv-value">10apriljoy@email.com</p>
+                <p className="cv-label">Gmail</p>
+                <p className="cv-value">10apriljoygarcia@gmail.com</p>
               </div>
             </div>
 
@@ -108,7 +108,7 @@ const CV = ({ isOpen, onClose }) => {
       </p>
 
       <p className="timeline-course">
-        Bachelor of Science in Computer Science
+        BS in Computer Science
       </p>
 
       <p className="timeline-status">Graduated</p>
